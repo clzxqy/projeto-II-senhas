@@ -1,0 +1,199 @@
+body {
+    background-color: blue;
+    color: yellow;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    text-align: center;
+    padding: 20px 20px 10px 20px;
+    width: 100%;
+}
+
+.cadeado-img {
+    width: 80px;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 50px;
+    margin: 0 0 10px 0;
+}
+
+h2 {
+    font-size: 25px;
+    margin: 0;
+    font-weight: normal;
+}
+
+/* Container de Senha alterado para ocupar 80% da largura da tela */
+.container-senha {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 80%;
+    max-width: 1000px;
+    background-color: green;
+    padding: 15px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-top: 20px;
+}
+
+.texto-senha-label {
+    font-size: 15px;
+    color: yellow;
+    margin-right: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.caixa-senha {
+    flex-grow: 1;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: yellow;
+    font-size: 18px;
+    border: 1px solid yellow;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 1px;
+}
+
+/* Segunda caixa - Personalização */
+.caixa-personalizacao {
+    width: 80%;
+    max-width: 1000px;
+    border: 2px solid yellow;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 25px;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.titulo-personalizar {
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 0, 0.3);
+    padding-bottom: 10px;
+}
+
+.grid-opcoes {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.label-opcao {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+/* Coluna 1 - Controles de caracteres */
+.coluna-caracteres {
+    flex: 1;
+    min-width: 200px;
+}
+
+.controles-tamanho {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 5px;
+}
+
+.btn-controle {
+    background-color: yellow;
+    color: blue;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-controle:hover {
+    background-color: white;
+}
+
+.numero-exibido {
+    font-size: 22px;
+    font-weight: bold;
+    min-width: 30px;
+    text-align: center;
+}
+
+/* Coluna 2 - Checkboxes */
+.coluna-caracteristicas {
+    flex: 1;
+    min-width: 220px;
+}
+
+.opcoes-checkbox {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.opcoes-checkbox label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.opcoes-checkbox input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* Coluna 3 - Força da senha */
+.coluna-forca {
+    flex: 1;
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+}
+
+.caixa-forca {
+    margin-top: 5px;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Cores dinâmicas para a força da senha */
+.fraca {
+    background-color: red;
+}
+
+.media {
+    background-color: #ffcc00;
+    color: black;
+    text-shadow: none;
+}
+
+.forte {
+    background-color: green;
+}

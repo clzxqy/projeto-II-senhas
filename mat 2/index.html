@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Senhas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <img src="https://img.icons8.com/ios-filled/100/ffffff/lock.png" alt="Cadeado Fechado" class="cadeado-img">
+        <h1>Gerador de senhas</h1>
+        <h2>Gere instantaneamente uma senha aleatória e segura</h2>
+    </header>
+
+    <div class="container-senha">
+        <span class="texto-senha-label">senha</span>
+        <input type="text" id="campo-senha" class="caixa-senha" readonly value="">
+    </div>
+
+    <div class="caixa-personalizacao">
+        <p class="titulo-personalizar"><strong>Personalize sua senha</strong></p>
+        
+        <div class="grid-opcoes">
+            <div class="coluna-caracteres">
+                <span class="label-opcao">Número de caracteres</span>
+                <div class="controles-tamanho">
+                    <button type="button" id="btn-menos" class="btn-controle">-</button>
+                    <span id="valor-tamanho" class="numero-exibido">12</span>
+                    <button type="button" id="btn-mais" class="btn-controle">+</button>
+                </div>
+            </div>
+
+            <div class="coluna-caracteristicas">
+                <span class="label-opcao">Características da senha</span>
+                <div class="opcoes-checkbox">
+                    <label><input type="checkbox" id="chk-maiusculas" checked> Letras maiúsculas</label>
+                    <label><input type="checkbox" id="chk-minusculas" checked> Letras minúsculas</label>
+                    <label><input type="checkbox" id="chk-numeros" checked> Números</label>
+                    <label><input type="checkbox" id="chk-simbolos" checked> Símbolos</label>
+                </div>
+            </div>
+
+            <div class="coluna-forca">
+                <span class="label-opcao">Força da senha</span>
+                <div id="indicador-forca" class="caixa-forca fraca">Fraca</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const campoSenha = document.getElementById('campo-senha');
+        const btnMenos = document.getElementById('btn-menos');
+        const btnMais = document.getElementById('btn-mais');
+        const valorTamanho = document.getElementById('valor-tamanho');
+        const chkMaiusculas = document.getElementById('chk-maiusculas');
+        const chkMinusculas = document.getElementById('chk-minusculas');
+        const chkNumeros = document.getElementById('chk-numeros');
+        const chkSimbolos = document.getElementById('chk-simbolos');
+        const indicadorForca = document.getElementById('indicador-forca');
+
+        let tamanhoSenha = 12;
+
+        const conjuntos = {
+            maiusculas: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+            minusculas: 'abcdefghijklmnopqrstuvwxyz',
+            numeros: '0123456789',
+            simbolos: '!@#$%^&*()_+~`|}{[]:;?><,./-='
+        };
+
+        function gerarSenha() {
+            let caracteresPermitidos = '';
+            let tiposSelecionados = 0;
+
+            if (chkMaiusculas.checked) { caracteresPermitidos += conjuntos.maiusculas; tiposSelecionados++; }
+            if (chkMinusculas.checked) { caracteresPermitidos += conjuntos.minusculas; tiposSelecionados++; }
+            if (chkNumeros.checked) { caracteresPermitidos += conjuntos.numeros; tiposSelecionados++; }
+            if (chkSimbolos.checked) { caracteresPermitidos += conjuntos.simbolos; tiposSelecionados++; }
+
+            if (caracteresPermitidos === '') {
+                campoSenha.value = 'Selecione uma opção';
+                atualizarForca(0);
+                return;
+            }
+
+            let senhaGerada = '';
+            for (let i = 0; i < tamanhoSenha; i++) {
+                const indiceAleatorio = Math.floor(Math.random() * caracteresPermitidos.length);
+                senhaGerada += caracteresPermitidos[indiceAleatorio];
+            }
+
+            campoSenha.value = senhaGerada;
+            avaliarForca(tiposSelecionados);
+        }
+
+        function avaliarForca(tipos) {
+            // Lógica simples para definir a força baseado no tamanho e variedade
+            if (tamanhoSenha < 8 || tipos <= 1) {
+                atualizarForca('fraca', 'Vermelho');
+            } else if (tamanhoSenha >= 8 && tamanhoSenha < 12 && tipos >= 2 || tipos === 2) {
+                atualizarForca('media', 'Média');
+            } else {
+                atualizarForca('forte', 'Forte');
+            }
+        }
+
+        function atualizarForca(classe, texto) {
+            indicadorForca.className = 'caixa-forca ' + (classe || 'fraca');
+            indicadorForca.textContent = texto || 'Fraca';
+        }
+
+        // Eventos dos botões de tamanho (- e +)
+        btnMenos.addEventListener('click', () => {
+            if (tamanhoSenha > 4) {
+                tamanhoSenha--;
+                valorTamanho.textContent = tamanhoSenha;
+                gerarSenha();
+            }
+        });
+
+        btnMais.addEventListener('click', () => {
+            if (tamanhoSenha < 32) {
+                tamanhoSenha++;
+                valorTamanho.textContent = tamanhoSenha;
+                gerarSenha();
+            }
+        });
+
+        // Eventos de alteração dos checkboxes
+        [chkMaiusculas, chkMinusculas, chkNumeros, chkSimbolos].forEach(checkbox => {
+            checkbox.addEventListener('change', gerarSenha);
+        });
+
+        // Gera a primeira senha ao carregar a página
+        gerarSenha();
+    </script>
+</body>
+</html>
